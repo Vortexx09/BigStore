@@ -18,7 +18,12 @@ export const App = () => {
       body: JSON.stringify({ name, description }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        setName("");
+        setDescription("");
+        fetchCategories();
+      });
   }
 
   const fetchCategories = () => {
@@ -59,6 +64,15 @@ export const App = () => {
         Send 
       </Button>
     </Form>
+
+      <h2 className="mt-4">Categories</h2>
+      <ul className="category-list">
+        {categories.map((category) => (
+          <li key={category.id}>
+            <strong>{category.name}</strong> — {category.description}
+          </li>
+        ))}
+      </ul>
        
     </div>
   )
