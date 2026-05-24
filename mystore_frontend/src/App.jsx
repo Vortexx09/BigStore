@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Form, Button } from "react-bootstrap";
 import './App.css'
 import superstoreimg from './superstore.png';
@@ -6,6 +6,7 @@ import superstoreimg from './superstore.png';
 export const App = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [categories, setCategories] = useState([]);
 
   const handleSubmit = (event) => {
     
@@ -18,8 +19,18 @@ export const App = () => {
     })
       .then((response) => response.json())
       .then((data) => console.log(data));
+  }
 
-}
+  const fetchCategories = () => {
+    fetch("http://localhost:4000/categories/")
+    .then(response => response.json())
+    .then(data => setCategories(data))
+    .catch(error => console.error("Error:", error));
+  }
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <div className="App">
