@@ -11,6 +11,12 @@ export const App = () => {
   const handleSubmit = (event) => {
     
     event.preventDefault();
+
+    // VALIDACIÓN
+  if (!name.trim() || !description.trim()) {
+    alert("All fields are required");
+    return;
+  }
     // Realizar petición POST con los campos "name" y "description"
     fetch("http://localhost:4000/categories/", {
       method: "POST",
